@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { MongoClient } from 'mongodb';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 
 
@@ -10,16 +12,36 @@ export default function Home({name}) {
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"></link>
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          MongoDb Connected
+          MongoDb Query
         </h1>
 
-        {name.map((job) =>
-        <h1>{job.name}</h1>
+        {name.map((job, index) =>
+
+        <Card key={index}>
+  <Card.Header>{job.name}</Card.Header>
+  <div className={styles.horizontal}>
+  <img className="img-fluid" src="https://place-hold.it/230x200" alt="Card image cap" />
+  <Card.Body>
+    <Card.Title>{job.name}</Card.Title>
+    <Card.Text>
+      With supporting text below as a natural lead-in to additional content.
+    </Card.Text>
+   <Button variant="primary">Post Now</Button> 
+   {' '}
+   <Button variant="secondary">Cancel Post</Button>
+  </Card.Body>
+  </div>
+</Card>
+
+
       )}
+
+
 
 
       </main>
