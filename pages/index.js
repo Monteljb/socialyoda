@@ -32,7 +32,9 @@ export default function Home({name}) {
         </Link>
       </h2>
 
-        {name.map((job, index) =>
+        {name ?
+        
+        name.map((job, index) => 
 
         <Card key={index}>
   <Card.Header>{job.data.userId}</Card.Header>
@@ -56,7 +58,7 @@ export default function Home({name}) {
 </Card>
 
 
-      )}
+      ) : ""};
 
 
 
