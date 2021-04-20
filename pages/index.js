@@ -1,14 +1,21 @@
 import Head from 'next/head'
+import Link from 'next/link'
+import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { MongoClient } from 'mongodb';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Navigation from '../components/navigation';
 
 
 
 export default function Home({name}) {
   return (
     <div className={styles.container}>
+
+
+<Navigation />
+
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -19,13 +26,23 @@ export default function Home({name}) {
         <h1 className={styles.title}>
           MongoDb Query
         </h1>
+        <h2>
+        <Link href="/post">
+          <a>Post</a>
+        </Link>
+      </h2>
 
         {name.map((job, index) =>
 
         <Card key={index}>
-  <Card.Header>{job.name}</Card.Header>
+  <Card.Header>{job.data.userId}</Card.Header>
   <div className={styles.horizontal}>
-  <img className="img-fluid" src="https://place-hold.it/230x200" alt="Card image cap" />
+  <Image
+  src="/images/avatar.jpg"
+  alt="Picture of a triangle"
+  width={500}
+  height={500}
+/>
   <Card.Body>
     <Card.Title>{job.name}</Card.Title>
     <Card.Text>
@@ -78,7 +95,7 @@ const client = new MongoClient('mongodb+srv://test:test123@cluster0.klpfd.mongod
 
 if (!client.isConnected()) await client.connect();
     const db = client.db('myFirstDatabase')
-    const doc = await db.collection("agendaJobs").find({type: "single"}).toArray();
+    const doc = await db.collection("agendaJobs").find({type: "normal"}).toArray();
     
 
 let results = []
@@ -92,7 +109,7 @@ for (const key in doc) {
 }
 
 const plainData = JSON.parse(JSON.stringify(doc))
-console.log("resultssss" + plainData)
+console.log("resultssss" + JSON.stringify(plainData))
 
 return {
   props: { name: plainData }
