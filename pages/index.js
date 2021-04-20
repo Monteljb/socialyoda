@@ -91,8 +91,7 @@ export async function getStaticProps() {
 
  // Database Name
 const client = new MongoClient('mongodb+srv://test:test123@cluster0.klpfd.mongodb.net/myFirstDatabase?retryWrites=true', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useNewUrlParser: true
 });
 
 if (!client.isConnected()) await client.connect();
