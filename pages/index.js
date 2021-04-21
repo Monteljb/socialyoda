@@ -17,8 +17,7 @@ export default function Home({name}) {
   if (!user || user.isLoggedIn === false) {
     return <div>
       Loading...
-      {process.env.VERCEL_URL}
-      {process.env.AUTH0_BASE_URL}
+      {process.env.NEXTAUTH_URL}
       <p>
 
       <Link href="/api/auth/login">
