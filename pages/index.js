@@ -17,9 +17,9 @@ export default function Home({name}) {
   if (!user || user.isLoggedIn === false) {
     return <div>
       Loading...
-      {process.env.NEXTAUTH2} <br><br>
-      {process.env.NEXTAUTH3}<br><br>
-      {process.env.NEXTAUTH4}<br><br>
+      {process.env.NEXTAUTH2} {' '}{' '}<br></br>
+      {process.env.NEXTAUTH3}{' '}{' '}<br></br>
+      {process.env.NEXTAUTH4}{' '}{' '}<br></br>
       <p>
 
       <Link href="/api/auth/login">
