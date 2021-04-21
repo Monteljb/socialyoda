@@ -17,8 +17,6 @@ export default function Home({name}) {
   if (!user || user.isLoggedIn === false) {
     return <div>
       Loading...
-      {process.env.NEXTAUTH_URL}
-      `process.env.NEXTAUTH_URL`
       {process.env.NEXT_PUBLIC_TEST}
       <p>
 
