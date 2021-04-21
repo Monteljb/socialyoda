@@ -19,6 +19,7 @@ export default function Home({name}) {
       Loading...
       {process.env.NEXTAUTH_URL}
       `process.env.NEXTAUTH_URL`
+      {process.env.NEXT_PUBLIC_TEST}
       <p>
 
       <Link href="/api/auth/login">
