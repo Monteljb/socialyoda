@@ -18,6 +18,10 @@ export default function Home({name}) {
     return <div>
       Loading...
       {process.env.NEXTAUTH_URL}
+      {process.env.NEXTAUTH2}
+      {process.env.NEXTAUTH3}
+      {process.env.NEXTAUTH4}
+      {process.env.NEXTAUTH5}
       <p>
 
       <Link href="/api/auth/login">
