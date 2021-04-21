@@ -2,14 +2,34 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { MongoClient } from 'mongodb';
+//import { MongoClient } from 'mongodb';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Navigation from '../components/navigation';
-
+import { useUser } from '@auth0/nextjs-auth0';
 
 
 export default function Home({name}) {
+
+  const { user } = useUser({ redirectTo: '/login' })
+
+  // Server-render loading state
+  if (!user || user.isLoggedIn === false) {
+    return <div>
+      Loading...
+      <p>
+
+      <Link href="/api/auth/login">
+          <a>login</a>
+        </Link>
+
+      </p>
+
+
+    </div>
+  }
+
+
   return (
     <div className={styles.container}>
 
@@ -19,18 +39,21 @@ export default function Home({name}) {
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"></link>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossOrigin="anonymous"></link>
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
           MongoDb Query
         </h1>
+        <pre>{JSON.stringify(user, null, 2)}</pre>
         <h2>
-        <Link href="/post">
-          <a>Post</a>
+        <Link href="/api/auth/logout">
+          <a>logout</a>
         </Link>
       </h2>
+
+      <img src={user.picture}></img>
 
         {name ?
         
@@ -60,10 +83,14 @@ export default function Home({name}) {
 
       ) : ""};
 
+      
+
 
 
 
       </main>
+
+      
 
       <footer className={styles.footer}>
 
@@ -80,39 +107,12 @@ export default function Home({name}) {
   )
 }
 
-export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
-
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
+export async function getStaticProps({req, res}) {
 
 
-
- // Database Name
-const client = new MongoClient('mongodb+srv://test:test123@cluster0.klpfd.mongodb.net/myFirstDatabase?retryWrites=true', {
-  useNewUrlParser: true
-});
-
-if (!client.isConnected()) await client.connect();
-    const db = client.db('myFirstDatabase')
-    const doc = await db.collection("agendaJobs").find({type: "normal"}).toArray();
-    
-
-let results = []
-
-for (const key in doc) {
-  if (doc.hasOwnProperty(key)) {
-    const element = doc[key];
-  //  console.log(JSON.stringify(element))
-    results.push(element)
+  return {
+    props: {}, // Will be passed to the page component as props
   }
-}
 
-const plainData = JSON.parse(JSON.stringify(doc))
-console.log("resultssss" + JSON.stringify(plainData))
 
-return {
-  props: { name: plainData }
-}
 }
