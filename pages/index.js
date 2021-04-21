@@ -21,7 +21,6 @@ export default function Home({name}) {
       {process.env.NEXTAUTH2}
       {process.env.NEXTAUTH3}
       {process.env.NEXTAUTH4}
-      {process.env.NEXTAUTH5}
       <p>
 
       <Link href="/api/auth/login">
